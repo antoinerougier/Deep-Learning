@@ -121,9 +121,6 @@ class Layer:
     def parameters(self):
         return [p for n in self.neurons for p in n.parameters()]
 
-    def __repr__(self):
-        return f"Layer(neurons={len(self.neurons)}, act={self.neurons[0].activation})"
-
 class MLP:
 
     def __init__(self, n_inputs, layer_sizes, activations=None):
