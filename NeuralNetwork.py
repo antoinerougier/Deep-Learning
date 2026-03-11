@@ -1,7 +1,9 @@
 import math
 import random
 
-class Value():
+class Value:
+
+    
     def __init__(self, data, _children=(), _op="", label=""):
         self.data = float(data)
         self.grad = 0.0
@@ -57,3 +59,45 @@ class Value():
             self.grad += s * (1 - s) * out.grad
         out._backward = _backward
         return out
+    
+    
+    def backward(self):
+        topo, visited = [], set()
+        def build(v):
+            if v not in visited:
+                visited.add(v)
+                for c in v._prev:
+                    build(c)
+                topo.append(v)
+        build(self)
+        self.grad = 1.0
+        for node in reversed(topo):
+            node._backward()
+
+    def __repr__(self):
+        return f"Value(data={self.data:.4f}, grad={self.grad:.4f})"
+    
+
+class Neuron:
+
+    ACTIVATIONS = {"tanh", "relu", "sigmoid", "linear"}
+
+    def __init__(self, n_inputs, activation="tanh"):
+        assert activation in self.ACTIVATIONS
+        scale = math.sqrt(2.0 / n_inputs)
+        self.w = [Value(random.gauss(0, scale)) for _ in range(n_inputs)]
+        self.b = Value(0.0)
+        self.activation = activation
+
+    def __call__(self, x):
+        z = sum((wi * xi for wi, xi in zip(self.w, x)), self.b)
+        if   self.activation == "tanh":    return z.tanh()
+        elif self.activation == "relu":    return z.relu()
+        elif self.activation == "sigmoid": return z.sigmoid()
+        else:                              return z          # linear
+
+    def parameters(self):
+        return self.w + [self.b]
+
+    def __repr__(self):
+        return f"Neuron(in={len(self.w)}, act={self.activation})"
