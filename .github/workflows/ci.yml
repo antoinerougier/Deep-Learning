@@ -23,4 +23,4 @@ jobs:
         run: pip install pytest
  
       - name: Lancer les tests
-        run: python -m pytest test_value.py -v
+        run: python -m pytest test_NeuralNetwork.py -v
