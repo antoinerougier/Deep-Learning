@@ -187,7 +187,6 @@ m = model.to(device)
 print(sum([p.numel() for p in m.parameters()]))
 optimizer = torch.optim.AdamW(m.parameters(), lr=learning_rate)
 
-
 # training loop
 for iter in range(max_iters): # increase number of steps for good results... 
     

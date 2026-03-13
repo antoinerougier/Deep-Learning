@@ -1,0 +1,26 @@
+name: CI Python
+ 
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+ 
+jobs:
+  test:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v3
+ 
+      - name: Installer Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+ 
+      - name: Installer les dépendances
+        run: pip install pytest
+ 
+      - name: Lancer les tests
+        run: python -m pytest test_value.py -v
