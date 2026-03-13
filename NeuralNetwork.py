@@ -59,8 +59,8 @@ class Value:
 
     __radd__ = __add__
     __rmul__ = __mul__
-    __rsub__ = lambda self, o: Value(o) - self
-    __rtruediv__ = lambda self, o: Value(o) / self
+    __rsub__ = lambda self, o: Value(o) - self  # noqa: E731
+    __rtruediv__ = lambda self, o: Value(o) / self  # noqa: E731
 
     def tanh(self):
         t = math.tanh(self.data)
