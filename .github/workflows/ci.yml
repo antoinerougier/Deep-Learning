@@ -20,7 +20,7 @@ jobs:
           python-version: '3.11'
  
       - name: Installer les dépendances
-        run: pip install pytest
+        run: pip install pytest flake8
 
       - name: Linting (flake8)
         run: python -m flake8 test_NeuralNetwork.py
