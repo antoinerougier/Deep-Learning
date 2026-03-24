@@ -138,9 +138,8 @@ def run_demo():
         ax.spines["right"].set_visible(False)
 
     plt.tight_layout(pad=2)
-    plt.savefig("adam_demo.png", dpi=150, bbox_inches="tight")
+    plt.savefig("output/adam_demo.png", dpi=150, bbox_inches="tight")
     plt.show()
-    print("Figure sauvegardée → adam_demo.png")
 
 
 if __name__ == "__main__":
